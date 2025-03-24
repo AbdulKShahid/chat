@@ -1,0 +1,26 @@
+.messages-container {
+    height: 400px;
+    border: 1px solid lightblue;
+    padding: 16px;
+    overflow-y: scroll;
+}
+
+.message-input-container {
+    height: 100px;
+    border: 1px solid pink;
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    .message-input {
+        margin-top: 4px;
+        display: inline-block;
+        padding: 8px;
+    }
+}
+
+.each-message-container {
+    border: 1px solid pink;
+    padding: 16px 4px 16px 12px;
+    .each-message {
+    }
+}
