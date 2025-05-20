@@ -7,15 +7,16 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
+  baseUrl = 'http://localhost:3000'
   constructor(private http: HttpClient) {
 
    }
 
    get(url: string): Observable<any> {
-    return this.http.get(url);
+    return this.http.get(this.baseUrl + url);
    }
 
    post(url: string, body: any): Observable<any> {
-    return this.http.post(url, body);
+    return this.http.post(this.baseUrl + url, body);
    }
 }

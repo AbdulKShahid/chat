@@ -4,6 +4,8 @@ import { ChatMessage } from '../../../models/chat.model';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { LoginService } from '../../../../auth/services/login.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat-window',
@@ -16,7 +18,10 @@ export class ChatWindowComponent implements OnInit{
   messages: ChatMessage[] | undefined = undefined;
   newMessage: string = '';
 
-  constructor(private chatService: ChatService) {}
+  constructor(private chatService: ChatService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
 
 
   ngOnInit(): void {
@@ -43,6 +48,11 @@ export class ChatWindowComponent implements OnInit{
       }
      
     });
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['../auth/login'], {relativeTo: this.route});
   }
 
 }

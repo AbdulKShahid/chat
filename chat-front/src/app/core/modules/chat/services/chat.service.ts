@@ -7,12 +7,10 @@ import { ApiService } from '../../../services/api.service';
 })
 export class ChatService {
 
-  baseUrl = 'http://localhost:3000'
-  serviceUrl = this.baseUrl  + '/messages'
+  serviceUrl = '/messages';
   constructor(private apiService: ApiService) { }
 
   getAll(): Observable<any> {
-
     return this.apiService.get(this.serviceUrl);
   }
 
