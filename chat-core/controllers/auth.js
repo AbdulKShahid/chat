@@ -1,7 +1,7 @@
 const {pool} = require('../db.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const secret = require('../keys/secret-key.js').secretKey;
 exports.login = async (req,res) => {
 
     try {
@@ -22,7 +22,7 @@ exports.login = async (req,res) => {
 
           return res.status(401).json({ error: 'Invalid credentials' });
         }
-        const token = jwt.sign({ userId: user.id, email: user.email, name: user.name }, 'secret-key', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user.id, email: user.email, name: user.name }, secret , { expiresIn: '1h' });
         res.json({ token });
         console.log('logged in');
     } catch(e) {
