@@ -5,6 +5,8 @@ const port = 3000;                  //Save the port number where your server wil
 const bodyParser = require('body-parser')
 const messagesRouter = require('./routes/messages.js');
 const usersRouter = require('./routes/users.js');
+const authRouter = require('./routes/auth.js');
+
 const cors = require('cors');
 app.use(bodyParser.json())
 app.use(
@@ -30,6 +32,8 @@ app.use(cors({
 
 app.use('/messages', messagesRouter);
 app.use('/users', usersRouter);
+app.use('/auth', authRouter);
+
 
 app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
     console.log(`Now listening on port ${port}`); 
