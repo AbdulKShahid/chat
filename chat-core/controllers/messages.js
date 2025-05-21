@@ -50,3 +50,25 @@ exports.create = async (req, res) => {
   }
 };
 
+exports.sendMessage = async(data) => {
+  console.log('Message received:', data);
+
+  try {
+      const results = await pool.query(
+          `INSERT INTO messages (sender_id, message, sent_at) 
+           VALUES ($1, $2, NOW()) RETURNING *`, 
+          [data.senderId, data.message]
+      );
+      const formattedMessages = results.rows.map(msg => ({
+        id: msg.id,
+        senderId: msg.sender_id, // sender_id → senderId
+        message: msg.message,
+        sentAt: msg.sent_at
+    }));
+    return formattedMessages[0];
+
+  } catch (error) {
+      console.error('Database error:', error);
+  }
+
+}

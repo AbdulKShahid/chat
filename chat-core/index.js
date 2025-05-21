@@ -1,40 +1,46 @@
+const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
+const initializeSocket = require('./socket'); // 👈 import socket logic
 
-const express = require('express'); //Import the express dependency
-const app = express();              //Instantiate an express app, the main work horse of this server
-const port = 3000;                  //Save the port number where your server will be listening
-const bodyParser = require('body-parser')
+const app = express();
+const port = 3000;
+
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
 const messagesRouter = require('./routes/messages.js');
 const usersRouter = require('./routes/users.js');
 const authRouter = require('./routes/auth.js');
 
-const cors = require('cors');
-app.use(bodyParser.json())
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-)
+// Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// Set up CORS
 app.use(cors({
-  origin: true, // "true" will copy the domain of the request back
-                // to the reply. If you need more control than this
-                // use a function.
-
-  credentials: true, // This MUST be "true" if your endpoint is
-                     // authenticated via either a session cookie
-                     // or Authorization header. Otherwise the
-                     // browser will block the response.
-
-  methods: 'POST,GET,PUT,OPTIONS,DELETE' // Make sure you're not blocking
-                                         // pre-flight OPTIONS requests
+  origin: true,
+  credentials: true,
+  methods: 'POST,GET,PUT,OPTIONS,DELETE',
 }));
 
+// Routes
 app.use('/messages', messagesRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 
+// Server & Socket.IO setup
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: true,
+    credentials: true,
+  }
+});
 
-app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
-    console.log(`Now listening on port ${port}`); 
+// ✅ Delegate socket logic
+initializeSocket(io);
+
+// Start server
+server.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
