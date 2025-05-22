@@ -9,6 +9,7 @@ interface ReceivedMessage {
   id: number;
   sentAt: number;
   senderId: number;
+  senderName: string;
 }
 
 interface TokenPayload {

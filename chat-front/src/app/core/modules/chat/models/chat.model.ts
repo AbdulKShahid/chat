@@ -3,4 +3,5 @@ export interface ChatMessage {
     id: number;
     sentAt: number;
     senderId: number;
+    senderName: string;
 }

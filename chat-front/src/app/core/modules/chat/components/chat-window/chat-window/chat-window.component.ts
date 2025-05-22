@@ -52,12 +52,6 @@ export class ChatWindowComponent implements OnInit{
   sendMessage(newMessage: string) {
     this.newMessage = '';
     this.chatSocketService.sendMessage(newMessage);
-    // this.chatService.create(newMessage).subscribe({
-    //   next: (data) =>{
-    //     this.messages?.push(data);
-    //   }
-     
-    // });
   }
 
   logout() {
