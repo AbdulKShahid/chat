@@ -38,6 +38,7 @@ export class ChatWindowComponent implements OnInit{
       next: (data) =>{
         console.log(data);
         this.messages = data;
+        this.scrollToBottom();
       }
      
     });
@@ -47,13 +48,31 @@ export class ChatWindowComponent implements OnInit{
   listenToChatSocket() {
     this.chatSocketService.receiveMessages().subscribe(data => {
       this.messages?.push(data);
+      // scroll to bottom if its my message
+      if (data.senderId === this.userId) {
+        this.scrollToBottom();
+      }
     })
-
   }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      const messagesContainerEle = document.getElementById('messages-container');
+      if (messagesContainerEle) {
+        messagesContainerEle.scrollTo({
+        top: messagesContainerEle.scrollHeight + 1000,
+        behavior: 'smooth'
+      });
+
+      }
+    }, 500);
+  }
+  
 
   sendMessage(newMessage: string) {
     this.newMessage = '';
     this.chatSocketService.sendMessage(newMessage);
+    //TOOD: Add notification for new message
   }
 
   logout() {

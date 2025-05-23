@@ -1,6 +1,6 @@
 <p>Welcome to chattt - {{userName}} !!!</p>
-<button (click)="logout()">Logout</button>
-<div class="messages-container">
+<button (click)="logout()" style="align-self: end;">Logout</button>
+<div class="messages-container" id="messages-container">
     @for(messageItem of messages; track messageItem) {
         <div class="each-message-line" [ngClass]="{'my-message': messageItem.senderId === userId}">
             <div class="each-message-container">
