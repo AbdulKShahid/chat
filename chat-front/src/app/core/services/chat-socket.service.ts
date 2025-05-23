@@ -8,7 +8,7 @@ interface ReceivedMessage {
   message: string;
   id: number;
   sentAt: number;
-  senderId: number;
+  senderId: string;
   senderName: string;
 }
 

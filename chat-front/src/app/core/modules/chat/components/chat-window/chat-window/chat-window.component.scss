@@ -18,9 +18,22 @@
     }
 }
 
-.each-message-container {
-    border: 1px solid pink;
+.each-message-line {
     padding: 16px 4px 16px 12px;
-    .each-message {
-    }
+    display: flex;
+}
+
+.my-message {
+    justify-content: end;
+}
+
+.each-message-container {
+    padding: 16px;
+    border: 1px solid pink;
+    border-radius: 12px;
+    max-width: 75%;
+}
+
+.each-message-text {
+    padding-top: 8px;
 }

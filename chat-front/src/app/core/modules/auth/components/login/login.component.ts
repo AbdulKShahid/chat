@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +33,10 @@ export class LoginComponent {
       next: (value) => {
         console.log('login Response', value);
         localStorage.setItem('token', value.token);
+        const decoded: any = jwtDecode(value.token);
+        console.log('decoded', decoded);
+        localStorage.setItem('userName', decoded.name);
+        localStorage.setItem('userId', decoded.userId);
 
         this.router.navigate(['../../messages'], { relativeTo: this.route});
 

@@ -1,11 +1,17 @@
-<p>chat!</p>
+<p>Welcome to chattt - {{userName}} !!!</p>
 <button (click)="logout()">Logout</button>
 <div class="messages-container">
     @for(messageItem of messages; track messageItem) {
-        <div class="each-message-container">
-            <div style="display: flex;justify-content: space-between">
-                <span>{{messageItem.senderName}}</span> <span>{{messageItem.sentAt | date: 'dd-MMM-yy: HH:MM'}}</span> </div>
-            <div class="each-message">{{messageItem.message}}</div>
+        <div class="each-message-line" [ngClass]="{'my-message': messageItem.senderId === userId}">
+            <div class="each-message-container">
+
+                <span>
+                    <span style="color: green">{{messageItem.senderId === userId ? 'You': messageItem.senderName}}</span>  
+                    <small style="padding-left: 8px">{{messageItem.sentAt | date: 'dd-MMM-yy: HH:MM'}}</small>
+                </span> 
+                <div class="each-message-text">{{messageItem.message}}</div>
+                
+            </div>
         </div>
         
     }

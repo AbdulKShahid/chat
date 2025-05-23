@@ -3,20 +3,22 @@ import { ChatService } from '../../../services/chat.service';
 import { ChatMessage } from '../../../models/chat.model';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChatSocketService } from '../../../../../services/chat-socket.service';
 
 @Component({
   selector: 'app-chat-window',
   standalone: true,
-  imports: [MatInputModule, FormsModule, DatePipe],
+  imports: [MatInputModule, FormsModule, DatePipe, NgClass],
   templateUrl: './chat-window.component.html',
   styleUrl: './chat-window.component.scss'
 })
 export class ChatWindowComponent implements OnInit{
   messages: ChatMessage[] | undefined = undefined;
   newMessage: string = '';
+  userName: string | null = localStorage.getItem('userName');
+  userId: string | null = localStorage.getItem('userId');
 
   constructor(private chatService: ChatService,
     private route: ActivatedRoute,
