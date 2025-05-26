@@ -11,15 +11,11 @@
     .login-field {
         display: flex;
         flex-direction: column;
-        margin: 16px;
-        label {
-            padding-bottom: 8px;
+        mat-label {
+            margin-bottom: 8px;
         }
     }
-    .login-submit-button {
-        margin: 16px;
 
-    }
 
     .login-form {
         width: 300px;

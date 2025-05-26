@@ -6,11 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { DatePipe, NgClass } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChatSocketService } from '../../../../../services/chat-socket.service';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-chat-window',
   standalone: true,
-  imports: [MatInputModule, FormsModule, DatePipe, NgClass],
+  imports: [MatInputModule, FormsModule, DatePipe, NgClass, MatButtonModule, MatIconModule],
   templateUrl: './chat-window.component.html',
   styleUrl: './chat-window.component.scss'
 })
@@ -70,6 +72,9 @@ export class ChatWindowComponent implements OnInit{
   
 
   sendMessage(newMessage: string) {
+    if(!this.newMessage) {
+      return;
+    }
     this.newMessage = '';
     this.chatSocketService.sendMessage(newMessage);
     //TOOD: Add notification for new message

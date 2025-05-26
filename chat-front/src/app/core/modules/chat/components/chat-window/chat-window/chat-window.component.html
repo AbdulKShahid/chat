@@ -1,5 +1,8 @@
-<p>Welcome to chattt - {{userName}} !!!</p>
-<button (click)="logout()" style="align-self: end;">Logout</button>
+<div class="top-section">
+    <p>Welcome to chattt - {{userName}} !!!</p>
+    <button mat-flat-button (click)="logout()" style="align-self: center;">Logout</button>
+</div>
+
 <div class="messages-container" id="messages-container">
     @for(messageItem of messages; track messageItem) {
         <div class="each-message-line" [ngClass]="{'my-message': messageItem.senderId === userId}">
@@ -17,8 +20,16 @@
     }
 </div>
 <div class="message-input-container">
-    <span>type a message</span>
-    <input class="message-input" matInput [(ngModel)]="newMessage" (keyup.enter)="sendMessage(newMessage)"/>
+
+    <mat-form-field class="example-form-field" appearance="outline">
+        <input matInput type="text" [(ngModel)]="newMessage"  (keyup.enter)="sendMessage(newMessage)" placeholder="Type something..." >
+        
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="sendMessage(newMessage)" color="primary" [disabled]="!newMessage">
+                <mat-icon>send</mat-icon>
+            </button>
+        
+    </mat-form-field>
+
 </div>
 
 
